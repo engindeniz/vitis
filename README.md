@@ -175,7 +175,7 @@ This code is released under the Apache License 2.0.
 ### Acknowledgments
 
 The code is written based on <a href="https://github.com/antoyang/FrozenBiLM" target="_blank">FrozenBiLM</a>. \
-The prompt learning code is inspiried by <a href="https://github.com/THUDM/P-tuning-v2/" target="_blank">
+The prompt learning code is inspired by <a href="https://github.com/THUDM/P-tuning-v2/" target="_blank">
 P-tuning-v2</a>.
 
 ### Citation
