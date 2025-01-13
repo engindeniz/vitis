@@ -544,24 +544,6 @@ def main(args):
     if args.different_lr_embedding_layers:
         params_for_optimization = list(p for p in model.parameters() if
                                        p.requires_grad)
-        # if args.different_lr_embedding_layers_for_text_prompts:
-        #     params_from_text_prompt_embedding_layers_for_optimization = [p for n, p in model.named_parameters() if
-        #                                                                  p.requires_grad and ("prefix_encoder" in n)]
-        #     names_from_text_prompt_embedding_layers_for_optimization = [n for n, p in model.named_parameters() if
-        #                                                                 p.requires_grad and ("prefix_encoder" in n)]
-        #     params_from_embedding_layers_for_optimization = [p for n, p in model.named_parameters() if
-        #                                                      p.requires_grad and not ("prefix_encoder" in n) and (
-        #                                                              "prompt" in n)]
-        #     names_from_embedding_layers_for_optimization = [n for n, p in model.named_parameters() if
-        #                                                     p.requires_grad and not ("prefix_encoder" in n) and (
-        #                                                             "prompt" in n)]
-        #     params_from_base_model_for_optimization = [p for n, p in model.named_parameters() if
-        #                                                p.requires_grad and n not in (
-        #                                                        names_from_embedding_layers_for_optimization + names_from_text_prompt_embedding_layers_for_optimization)]
-        #     assert len(params_for_optimization) == len(params_from_embedding_layers_for_optimization) + len(
-        #         params_from_base_model_for_optimization) + len(
-        #         params_from_text_prompt_embedding_layers_for_optimization)
-        # else:
         params_from_embedding_layers_for_optimization = [p for n, p in model.named_parameters() if
                                                          p.requires_grad and (
                                                                  ("prefix_encoder" in n) or ("prompt" in n))]
@@ -577,18 +559,6 @@ def main(args):
                                        p.requires_grad)
     if args.optimizer == 'adam':
         if args.different_lr_embedding_layers:
-            # if args.different_lr_embedding_layers_for_text_prompts:
-            #     optimizer = torch.optim.Adam([
-            #         {'params': params_from_base_model_for_optimization},
-            #         {'params': params_from_embedding_layers_for_optimization, 'lr': args.embedding_layer_lr},
-            #         {'params': params_from_text_prompt_embedding_layers_for_optimization,
-            #          'lr': args.text_prompt_embedding_layer_lr},
-            #     ],
-            #         lr=args.lr,
-            #         betas=(args.beta1, args.beta2),
-            #         weight_decay=args.weight_decay,
-            #     )
-            # else:
             optimizer = torch.optim.Adam([
                 {'params': params_from_base_model_for_optimization},
                 {'params': params_from_embedding_layers_for_optimization, 'lr': args.embedding_layer_lr}],
